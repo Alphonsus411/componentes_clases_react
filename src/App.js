@@ -1,57 +1,56 @@
-import { Component } from "react";
+import { Component } from 'react'
 
-class Button extends Component {
-  state = {}
-  constructor(props) {
-    super(props)
-    console.log('constructor', props);
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate', prevProps, prevState);
-  }
-
-  componentWillUnmount() {
-    console.log("Desmontando componente...", this.props, this.state)
-  }
-
+class Input extends Component {
+  
   render() {
-    console.log("Renderizando botón...");
     return (
-      <button onClick={() => this.setState({ prop: 1 })}>
-        Enviar
-      </button>
+      <input
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
     )
   }
 }
 
 class App extends Component {
-  state = {
-    valor: 3
-  }
-  render() {
-    console.log(this.state);
-    return (
-      <div>
-        <p>Hola mundo</p>
-        {this.state.valor === 3
-        ? <Button cerdito="feliz"/>
-        : null}
-        <button
-          className={`${this.state.valor}`} 
-          onClick={() => this.setState({ valor: 2 })}
-        >
-          Enviar en App
-        </button>
-      </div>
-    )
-  }
+    state = {
+        nombre: "",
+        apellido: "",
+    };
+
+    constructor(props) {
+        super(props)
+        this.updateNombre = this.updateNombre.bind(this)
+    }
+
+    updateNombre = (v) {
+        console.log(this);
+        this.updateValues("nombre", v.target.value);
+    };
+
+    updateValues = (prop, value) {
+        this.setState({ [prop]: value });
+    };
+
+    render() {
+        return (
+            <p>
+                Nombre completo: {this.state.nombre} {this.state.apellido}
+
+                <Input
+                    value={this.state.nombre}
+                    onChange={this.updateNombre}
+                />
+
+                <Input
+                    value={this.state.apellido}
+                    onChange={(e) =>
+                        this.updateValues("apellido", e.target.value)
+                    }
+                />
+            </p>
+        );
+    }
 }
-
-
 
 export default App;
