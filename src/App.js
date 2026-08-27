@@ -11,10 +11,18 @@ class Button extends Component {
     console.log('componentDidMount');
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate', prevProps, prevState);
+  }
+
+  componentWillUnmount() {
+    console.log("Desmontando componente...", this.props, this.state)
+  }
+
   render() {
     console.log("Renderizando botón...");
     return (
-      <button>
+      <button onClick={() => this.setState({ prop: 1 })}>
         Enviar
       </button>
     )
@@ -30,7 +38,9 @@ class App extends Component {
     return (
       <div>
         <p>Hola mundo</p>
-        <Button cerdito="feliz"/>
+        {this.state.valor === 3
+        ? <Button cerdito="feliz"/>
+        : null}
         <button
           className={`${this.state.valor}`} 
           onClick={() => this.setState({ valor: 2 })}
