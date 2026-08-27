@@ -18,17 +18,12 @@ class App extends Component {
         apellido: "",
     };
 
-    constructor(props) {
-        super(props)
-        this.updateNombre = this.updateNombre.bind(this)
-    }
-
-    updateNombre = (v) {
+    updateNombre = (v) => {
         console.log(this);
         this.updateValues("nombre", v.target.value);
     };
 
-    updateValues = (prop, value) {
+    updateValues = (prop, value) => {
         this.setState({ [prop]: value });
     };
 
